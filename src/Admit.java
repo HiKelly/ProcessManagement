@@ -19,7 +19,7 @@ public class Admit extends TimerTask {
             int finishedTime = 0;
             boolean isBlocked = in.nextBoolean();
             long inRunningTime = 0;
-            long inBlockedTime = 0;
+            long inBlockedTime = in.nextLong();
             long blockedTime = in.nextLong();
 
             Process process = new Process(id, name, state, priority, totalTime, finishedTime, isBlocked, inRunningTime, inBlockedTime, blockedTime);  //创建新进程
@@ -30,8 +30,8 @@ public class Admit extends TimerTask {
     @Override
     public void run(){
         Scanner input = new Scanner(System.in);
-        System.out.println("Do you want to input a new process?");  //每次询问是否需要输入新的进程
-        System.out.println("Please input 'Y' or 'N':");
+        //System.out.println("Do you want to input a new process?");  //每次询问是否需要输入新的进程
+        //System.out.println("Please input 'Y' or 'N':");
         String op = input.next();
         if(op.charAt(0) == 'Y') {   //需要输入新的进程时
 

@@ -1,12 +1,13 @@
 import com.sun.xml.internal.ws.encoding.MtomCodec;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class MyThread implements Runnable{
 
-    public static long cycleTime = 5000;
+    public static long cycleTime = 3000;
     public static PriorityBlockingQueue<Process> ready = new PriorityBlockingQueue();   //就绪队列
     public static PriorityBlockingQueue<Process> running = new PriorityBlockingQueue(); //运行队列
     public static PriorityBlockingQueue<Process> blocked = new PriorityBlockingQueue(); //阻塞队列
@@ -53,30 +54,23 @@ public class MyThread implements Runnable{
         MyThread.printBlockedProc();
         System.out.println("以下为finished队列...");
         MyThread.printFinishedProc();
-    }
-
-    //进程取出
-    public static Process delReadyProc(){
-        if(ready.size() <= 0){
-            return null;
-        }
-        return MyThread.ready.remove();    //返回最小的一个
+        System.out.println();
     }
 
     @Override
     public void run(){
         while (true){
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             try {
-                Admit.startCreate();    //将文件里的进程加入到ready队列
-            } catch (IOException e){
+                Dispatch.run(); //从ready中取出优先级最高的放到running中
+            } catch (Exception e){
                 e.printStackTrace();
             }
-            Dispatch.run(); //从ready中取出优先级最高的放到running中
+            Wait.run();
         }
 
     }
