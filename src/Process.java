@@ -7,16 +7,24 @@ public class Process implements Comparable<Process>{
     private String name;    //进程外部标识符
     private String state;   //进程状态
     private int priority;   //进程优先级
-    private int totalTime;  //进程所需总时间
-    private int finishedTime;   //进程已用时间
+    private long totalTime;  //进程所需总时间
+    private long finishedTime;   //进程已用时间
+    private boolean isBlocked;  //进程是否需要I/O
+    private long inRunningTime; //进程进入running队列的时间
+    private long inBlockedTime; //进程进入blocked等待I/O的时间
+    private long blockedTime;  //进程需要I/O多久
 
-    public Process(int id, String name, String state, int priority, int totalTime, int finishedTime){
+    public Process(int id, String name, String state, int priority, long totalTime, long finishedTime, boolean isBlocked, long inRunningTime, long inBlockedTime, long blockedTime){
         this.id = id;
         this.name = name;
         this.state = state;
         this.priority = priority;
         this.totalTime = totalTime;
         this.finishedTime = finishedTime;
+        this.isBlocked = isBlocked;
+        this.inRunningTime = inRunningTime;
+        this.inBlockedTime = inBlockedTime;
+        this.blockedTime = blockedTime;
     }
 
     public void setId(int id) {
@@ -51,30 +59,52 @@ public class Process implements Comparable<Process>{
         return priority;
     }
 
-    public void setTotalTime(int totalTime) {
+    public void setTotalTime(long totalTime) {
         this.totalTime = totalTime;
     }
 
-    public int getFinishedTime() {
+    public long getFinishedTime() {
         return finishedTime;
     }
 
-    public void setFinishedTime(int finishedTime) {
+    public void setFinishedTime(long finishedTime) {
         this.finishedTime = finishedTime;
     }
 
-    public int getTotalTime() {
+    public long getTotalTime() {
         return totalTime;
     }
 
+    public boolean getIsBlocked() { return isBlocked; }
+
+    public void setIsBlocked(boolean blocked) { isBlocked = blocked; }
+
+    public long getBlockedTime() { return blockedTime; }
+
+    public void setBlockedTime(long blockedTime) { this.blockedTime = blockedTime; }
+
+    public long getInRunningTime() { return inRunningTime; }
+
+    public void setInRunningTime(long inRunningTime) { this.inRunningTime = inRunningTime; }
+
+    public long getInBlockedTime() { return inBlockedTime; }
+
+    public void setInBlockedTime(long inBlockedTime) { this.inBlockedTime = inBlockedTime; }
+
     @Override
     public int compareTo(Process o) {
-        return (this.getPriority() - o.getPriority());
+        if(this.getPriority() != o.getPriority())
+            return (this.getPriority() - o.getPriority());
+        return (this.getId() - o.getId());
     }
 
     public void printStatus(){
-        System.out.println("PCB id = " + id + ", name = " + name + ", priority = "
-                + priority + ", totalTime = " + totalTime + ", finishedTime = " + finishedTime);
+        System.out.print("PCB id = " + id + ", name = " + name + ", priority = "
+                + priority + ", totalTime = " + totalTime + ", finishedTime = " + finishedTime + ", isBlocked = " + isBlocked);
+        if(isBlocked == true){
+            System.out.print(", blockedTime = " + blockedTime);
+        }
+        System.out.println();
     }
 
 }
