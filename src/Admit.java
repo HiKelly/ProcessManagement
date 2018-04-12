@@ -1,9 +1,11 @@
+import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.TimerTask;
 
-public class Admit extends TimerTask {
+public class Admit {
 
     public static void startCreate() throws IOException{
         //输入起始进程
@@ -27,24 +29,22 @@ public class Admit extends TimerTask {
         }
     }
 
-    @Override
-    public void run(){
-        Scanner input = new Scanner(System.in);
-        //System.out.println("Do you want to input a new process?");  //每次询问是否需要输入新的进程
-        //System.out.println("Please input 'Y' or 'N':");
-        String op = input.next();
-        if(op.charAt(0) == 'Y') {   //需要输入新的进程时
+    public static void go(){
 
-            int id = input.nextInt();
-            String name = input.next();
+        String s = Main.scanfArea.getText();
+        StringTokenizer tokens = new StringTokenizer(s);
+        if(tokens.nextToken().charAt(0) == 'Y') {   //需要输入新的进程时
+
+            int id = Integer.valueOf(tokens.nextToken()).intValue();
+            String name = tokens.nextToken();
             String state = "ready";
-            int priority = input.nextInt();
-            int totalTime = input.nextInt();
+            int priority = Integer.valueOf(tokens.nextToken()).intValue();
+            int totalTime = Integer.valueOf(tokens.nextToken()).intValue();
             int finishedTime = 0;
-            boolean isBlocked = input.nextBoolean();
+            boolean isBlocked = Boolean.valueOf(tokens.nextToken()).booleanValue();
             long inRunningTime = 0;
             long inBlockedTime = 0;
-            long blockedTime = input.nextLong();
+            long blockedTime = Long.valueOf(tokens.nextToken()).longValue();
 
             Process process = new Process(id, name, state, priority, totalTime, finishedTime, isBlocked, inRunningTime, inBlockedTime, blockedTime);  //创建新进程
             MyThread.ready.add(process);
