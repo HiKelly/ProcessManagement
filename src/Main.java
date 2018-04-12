@@ -2,15 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main extends JFrame{
 
@@ -45,20 +37,25 @@ public class Main extends JFrame{
         submit.setText("提交");
         scanfPane.add(scanfArea);
         scanfPane.add(submit);
+        //scanfPane.setViewportView(scanfArea);
 
         getContentPane().add(scrollPane, BorderLayout.EAST);
         getContentPane().add(scanfPane, BorderLayout.WEST);
         pack(); //调整布局显示
         textArea.setText("");
         scanfArea.setText("Do you want to input a new process?\n");  //每次询问是否需要输入新的进程
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == submit){
+                    Admit.go();
+                }
+            }
+        });
 
     }
 
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == submit){
-            Admit.go();
-        }
-    }
+
 
     public static void main(String args[]) throws IOException, InterruptedException{
         Admit.startCreate();    //将文件里的进程加入到ready队列
