@@ -10,6 +10,7 @@ public class Main extends JFrame{
     private JTextArea textArea;
     public static JTextArea scanfArea;
     public static JButton submit;
+    private JButton input;
     private JPanel scanfPane;
 
     public Main(){
@@ -23,19 +24,22 @@ public class Main extends JFrame{
         scanfArea = new JTextArea();
         scanfPane = new JPanel();
         submit = new JButton();
+        input = new JButton();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("标准输出重定向到GUI");
         textArea.setColumns(50);
         textArea.setRows(50);
-        textArea.setFont(new Font("宋体", 0, 18));
+        textArea.setFont(new Font("宋体", 0, 20));
         textArea.setBackground(Color.lightGray);
         scrollPane.setViewportView(textArea);
         scanfArea.setColumns(50);
         scanfArea.setRows(50);
-        scanfArea.setFont(new Font("宋体", 0, 18));
+        scanfArea.setFont(new Font("宋体", 0, 20));
         scanfArea.setBackground(Color.pink);
         submit.setText("提交");
+        input.setText("输入");
         scanfPane.add(scanfArea);
+        scanfPane.add(input);
         scanfPane.add(submit);
         //scanfPane.setViewportView(scanfArea);
 
@@ -43,10 +47,19 @@ public class Main extends JFrame{
         getContentPane().add(scanfPane, BorderLayout.WEST);
         pack(); //调整布局显示
         textArea.setText("");
-        scanfArea.setText("Do you want to input a new process?\n");  //每次询问是否需要输入新的进程
+        scanfArea.setText("Do you want to input a new process?\n");//每次询问是否需要输入新的进程
+        input.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == input){
+                    scanfArea.setText(null);
+                }
+            }
+        });
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if(e.getSource() == submit){
                     Admit.go();
                 }
@@ -67,11 +80,5 @@ public class Main extends JFrame{
                 th.start();
             }
         });
-        /*Timer t = new Timer();
-        t.schedule(new Admit(), 10000, 5000);
-
-        while(true){
-            Thread.sleep(1000);
-        }*/
     }
 }
