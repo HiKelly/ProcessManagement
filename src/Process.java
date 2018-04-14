@@ -1,6 +1,3 @@
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Process implements Comparable<Process>{
 
     private int id;  //进程内部标识符
@@ -99,12 +96,13 @@ public class Process implements Comparable<Process>{
     }
 
     public void printStatus(){
-        System.out.print("PCB id = " + id + ", name = " + name + ", priority = "
-                + priority + ", totalTime = " + totalTime + ", finishedTime = " + finishedTime + ", isBlocked = " + isBlocked);
+        System.out.print("id = " + id + ", name = " + name + ", priority = "
+                + priority + ", total = " + totalTime + ", finished = " + finishedTime + ", isBlocked = ");
         if(isBlocked == true){
-            System.out.print(", blockedTime = " + blockedTime);
+            System.out.println("Y, blockedTime = " + blockedTime);
         }
-        System.out.println();
+        else
+            System.out.println("N");
     }
 
 }

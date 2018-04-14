@@ -31,15 +31,22 @@ public class Admit {
 
         String s = Main.scanfArea.getText();
         StringTokenizer tokens = new StringTokenizer(s);
+        String str;
+        for(int i = 0; i < 7; i++)
+            str = tokens.nextToken();
         int id = Integer.valueOf(tokens.nextToken()).intValue();
         String name = tokens.nextToken();
         String state = "ready";
         int priority = Integer.valueOf(tokens.nextToken()).intValue();
         int totalTime = Integer.valueOf(tokens.nextToken()).intValue();
         int finishedTime = 0;
-        boolean isBlocked = Boolean.valueOf(tokens.nextToken()).booleanValue();
+        String is = tokens.nextToken();
+        boolean isBlocked;
+        if(is.charAt(0) == 'Y')
+            isBlocked = true;
+        else isBlocked = false;
         long inRunningTime = 0;
-        long inBlockedTime = 0;
+        long inBlockedTime = Long.valueOf(tokens.nextToken()).longValue();
         long blockedTime = Long.valueOf(tokens.nextToken()).longValue();
 
         Process process = new Process(id, name, state, priority, totalTime, finishedTime, isBlocked, inRunningTime, inBlockedTime, blockedTime);  //创建新进程

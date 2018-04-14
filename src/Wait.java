@@ -22,6 +22,7 @@ public class Wait {
             return;
         }
         else {
+            MyThread.print();
             MyThread.blocked.poll();
             long now = System.currentTimeMillis() - time;
             while (now + proc.getFinishedTime() < proc.getBlockedTime() && now < MyThread.cycleTime){

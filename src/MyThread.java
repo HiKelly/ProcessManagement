@@ -1,7 +1,3 @@
-import com.sun.xml.internal.ws.encoding.MtomCodec;
-
-import javax.swing.*;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -61,7 +57,7 @@ public class MyThread implements Runnable{
     public void run(){
         while (true){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -70,7 +66,6 @@ public class MyThread implements Runnable{
             } catch (Exception e){
                 e.printStackTrace();
             }
-            Wait.run();
         }
 
     }

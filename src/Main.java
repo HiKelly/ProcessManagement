@@ -27,12 +27,12 @@ public class Main extends JFrame{
         input = new JButton();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("标准输出重定向到GUI");
-        textArea.setColumns(50);
+        textArea.setColumns(100);
         textArea.setRows(50);
         textArea.setFont(new Font("宋体", 0, 20));
         textArea.setBackground(Color.lightGray);
         scrollPane.setViewportView(textArea);
-        scanfArea.setColumns(50);
+        scanfArea.setColumns(70);
         scanfArea.setRows(50);
         scanfArea.setFont(new Font("宋体", 0, 20));
         scanfArea.setBackground(Color.pink);
@@ -52,7 +52,7 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == input){
-                    scanfArea.setText(null);
+                    scanfArea.setText("id name priority runTime isBlocked blockedStartTime blockedTotalTime\n");
                 }
             }
         });
@@ -78,6 +78,8 @@ public class Main extends JFrame{
                 new Main().setVisible(true);
                 Thread th = new Thread(new MyThread()); //整个ProcessManagement开始运作
                 th.start();
+                Thread thblocked = new Thread(new BlockThread());
+                thblocked.start();
             }
         });
     }

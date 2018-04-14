@@ -1,5 +1,3 @@
-import java.sql.ResultSet;
-
 public class Dispatch {
 
     //优先级抢占算法的调度
@@ -14,7 +12,7 @@ public class Dispatch {
                 MyThread.print();
             }
             else    //若ready队列也为空，则当前无可运行进程
-                System.out.println("No Process will be running...");
+                System.out.println("No Process will be running...\n");
         }
         else {
             long now = System.currentTimeMillis() - proc.getInRunningTime();
