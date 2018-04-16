@@ -4,6 +4,7 @@ public class Wait {
         proc.setFinishedTime(proc.getInBlockedTime());
         MyThread.running.poll();
         MyThread.blocked.add(proc);
+        MyThread.print();
         Process readyProc = MyThread.ready.peek();
         if(readyProc != null) {
             MyThread.ready.poll();
